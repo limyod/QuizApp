@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function Question(props){
-    console.log(props)
     const answerElements = props.question.answers.map((answer, index) => {
         let styleClass = ""
         if (props.answersChecked){
