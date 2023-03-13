@@ -70,6 +70,15 @@ export default function Quiz(){
         return questions.filter(q => q.answers.some(ans => ans.selected && ans.isCorrect)).length
     }
 
+    function checkAnswers() {
+        const questionsAnswered = questions.filter(q => q.answers.some(ans => ans.selected)).length
+        questionsAnswered === questions.length ? setAnswersChecked(true) : errorMessage()
+    }
+
+    function errorMessage() {
+        alert(`you haven't answered all the questions!`)
+    }
+
     return(
         <section className='quiz'>
             <div className="all_questions">
