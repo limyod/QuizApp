@@ -7,7 +7,8 @@ export default function Question(props){
             if (answer.isCorrect){
                 styleClass = "correct"
             } else if(answer.selected) {
-                styleClass = "incorrect"
+                // styleClass = "incorrect"
+                styleClass = "selected"
             }
         } else {
             if(answer.selected){
