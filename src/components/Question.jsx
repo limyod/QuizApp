@@ -7,7 +7,7 @@ export default function Question(prop){
     return (
         <div className="question">
             <h4 className="question--text">{prop.question.question}</h4>
-            <div className="answer">
+            <div className="answers">
                 {answers}
             </div>
         </div>

@@ -12,7 +12,9 @@ export default function Quiz(){
 
     return(
         <section className='quiz'>
-            {questions}
+            <div className="all_questions">
+                {questions}
+            </div>
             <button className='check_answer_button'>Check Answers</button>
         </section>
     )
