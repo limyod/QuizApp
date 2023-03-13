@@ -42,6 +42,13 @@ main{
 .selected{
     background-color: cadetblue;
 }
+.correct{
+    background-color: green;
+}
+
+.incorrect{
+    background-color: red;
+}
 
 /* 
 @media only screen and (min-width: 768px) {

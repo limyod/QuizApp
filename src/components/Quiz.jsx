@@ -12,14 +12,14 @@ import { nanoid } from 'nanoid'
  */
 export default function Quiz(){
     const [questions, setQuestions] = React.useState(getNewQuestions())
-    
+    const [answersChecked, setAnswersChecked] = React.useState(false)
     function getNewQuestions(){
         const x = data.results.map(question => {
             let inCorrectAnswers = question.incorrect_answers.map((ans)=>{
                 return { text: ans, selected: false, isCorrect: false }
             })
 
-            let correctAnswer = { text: question.correct_answer, selected: true, isCorrect: true }
+            let correctAnswer = { text: question.correct_answer, selected: false, isCorrect: true }
             return (
                 {
                     question: question.question,
@@ -40,16 +40,20 @@ export default function Quiz(){
                 {...q,
                 answers: q.answers.map((answer)=>{
                     return answer.text === answer_text ? 
-                        { ...answer, selected: true } : {...answer, selected: false}
+                        { ...answer, selected: !answer.selected } : {...answer, selected: false}
                 })}
                 : q
         }))
     }
 
+    function checkAnswers(){
+        setAnswersChecked(true);
+    }
+
 
     const questionElements = questions.map((data)=>{
         return(
-            <Question key={data.id} question={data} selectAnswer={selectAnswer} />
+            <Question key={data.id} question={data} answersChecked={answersChecked} selectAnswer={selectAnswer} />
         )
     })
 
@@ -58,7 +62,8 @@ export default function Quiz(){
             <div className="all_questions">
                 {questionElements}
             </div>
-            <button className='check_answer_button'>Check Answers</button>
+            {answersChecked && <span>You answered {questions.length} questions!</span>}
+            <button onClick={checkAnswers} className='check_answer_button'>Check Answers</button>
         </section>
     )
 }
