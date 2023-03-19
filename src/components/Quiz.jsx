@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react'
-import data from '../data'
+//import data from '../data'
 import Question from './Question'
 import { nanoid } from 'nanoid'
+import he from 'he';
+
 /**
  * What data do we need for each question?
  * question id
@@ -40,14 +42,14 @@ export default function Quiz(){
         }
         const transformedData = data.results.map(question => {
             const inCorrectAnswers = question.incorrect_answers.map((ans)=>{
-                return { text: ans, selected: false, isCorrect: false }
+                return { text: he.decode(ans), selected: false, isCorrect: false }
             })
-            const correctAnswer = { text: question.correct_answer, selected: false, isCorrect: true }
+            const correctAnswer = { text: he.decode(question.correct_answer), selected: false, isCorrect: true }
             let answerArray = [correctAnswer, ...inCorrectAnswers]
             shuffleArray(answerArray)
             return (
                 {
-                    question: question.question,
+                    question: he.decode(question.question),
                     type: question.type,
                     category: question.category,
                     difficulty: question.difficulty,
