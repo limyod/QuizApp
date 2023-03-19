@@ -12,12 +12,16 @@ import he from 'he';
  * category, question type, difficulty
  */
 export default function Quiz(props){
-    const apiLink = "https://opentdb.com/api.php?amount=5"
     const [questions, setQuestions] = React.useState([])
     const [answersChecked, setAnswersChecked] = React.useState(false)
     //const [OutOfQuestions, setOutOfQuestions] = React.useState(false)
     React.useEffect(()=>{
         async function fetchQuizData() {
+            const {amount, difficulty, category} = props.quizSettings
+            let queryParams = `amount=${amount}`
+            if(difficulty != 'mixed') queryParams += `&difficulty=${difficulty}`
+            if(category != 'none') queryParams +=`&category=${category}`
+            const apiLink = `https://opentdb.com/api.php?` + queryParams
             try {
                 const response = await fetch(apiLink);
                 const data = await response.json();
@@ -30,6 +34,11 @@ export default function Quiz(props){
         fetchQuizData()
     }, [])
 
+    // React.useEffect(()=>{
+    //     props.
+    // },[show]
+
+    // )
     
     function transformData(data){
         function shuffleArray(array) {
@@ -90,7 +99,12 @@ export default function Quiz(props){
 
     function checkAnswers() {
         const questionsAnswered = questions.filter(q => q.answers.some(ans => ans.selected)).length
-        questionsAnswered === questions.length ? setAnswersChecked(true) : errorMessage()
+        if(questionsAnswered === questions.length){
+            setAnswersChecked(true)
+            props.addQuizResult({date: new Date(), questions: questions})
+        }else{
+            errorMessage()
+        }
     }
 
     function goHome(){

@@ -2,21 +2,42 @@ import React from 'react'
 import './App.css'
 import Quiz from './components/Quiz'
 import Home from './components/Home'
-
+import TriviaCategories from './TriviaCategories'
 function App() {
   const defaultQuizSettings = {
-    questionNumber: 5,
+    amount: 5,
     difficulty: 'mixed',
-    category: 'all'
+    category: 'none'
   }
   const [isHome, setIsHome] = React.useState(true)
   const [quizSettings, setQuizSettings] = React.useState(defaultQuizSettings)
+  const [quizResults, setQuizResults] = React.useState([])
+  console.log(quizResults)
+  
+  function addQuizResult(quizResult) {
+    console.log(quizResult)
+    setQuizResults(oldQuizResults => [...oldQuizResults, quizResult])
+  }
+
+  function deleteQuizResults(){
+    setQuizResults([])
+  }
+
   return (
     <div className="App">
       <main>
-        {isHome ? <Home quizSettings={quizSettings}
-           setQuizSettings={setQuizSettings} setIsHome={setIsHome} /> :
-          <Quiz quizSettings={quizSettings} setIsHome={setIsHome} />}
+        {isHome ? 
+        <Home 
+          quizSettings={quizSettings}
+          setQuizSettings={setQuizSettings}
+          setIsHome={setIsHome} 
+          /> :
+        <Quiz 
+          addQuizResult={addQuizResult}
+          quizSettings={quizSettings} 
+          setIsHome={setIsHome} 
+          triviaCategories={TriviaCategories.trivia_categories}
+          />}
       </main>
     </div>
   )
