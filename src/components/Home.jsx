@@ -1,4 +1,5 @@
 import React from 'react'
+import Charts from './Charts'
 export default function Home(props){
     function startQuiz(){
         props.setIsHome(false)
@@ -21,10 +22,7 @@ export default function Home(props){
                     <input type="range" min="5" max="15" step="5" name="" id="" />
                 </form>
             </div> */}
-            
-            <section>
-                See my Results
-            </section>
+            {props.quizResults.length > 0 && <Charts quizResults={props.quizResults}/>}
             <button type='button'>Clear my Results</button>
         </>
     )

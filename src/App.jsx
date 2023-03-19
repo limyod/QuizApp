@@ -2,17 +2,17 @@ import React from 'react'
 import './App.css'
 import Quiz from './components/Quiz'
 import Home from './components/Home'
-import TriviaCategories from './TriviaCategories'
+
 function App() {
   const defaultQuizSettings = {
     amount: 5,
     difficulty: 'mixed',
     category: 'none'
   }
+
   const [isHome, setIsHome] = React.useState(true)
   const [quizSettings, setQuizSettings] = React.useState(defaultQuizSettings)
   const [quizResults, setQuizResults] = React.useState([])
-  console.log(quizResults)
   
   function addQuizResult(quizResult) {
     console.log(quizResult)
@@ -28,6 +28,7 @@ function App() {
       <main>
         {isHome ? 
         <Home 
+          quizResults={quizResults}
           quizSettings={quizSettings}
           setQuizSettings={setQuizSettings}
           setIsHome={setIsHome} 
@@ -35,8 +36,7 @@ function App() {
         <Quiz 
           addQuizResult={addQuizResult}
           quizSettings={quizSettings} 
-          setIsHome={setIsHome} 
-          triviaCategories={TriviaCategories.trivia_categories}
+          setIsHome={setIsHome}
           />}
       </main>
     </div>

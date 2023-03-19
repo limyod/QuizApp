@@ -46,6 +46,10 @@ main{
     background-color: green;
 }
 
+.victory-pie-chart svg {
+    width: min(80%, 400px);
+    height: auto;
+}
 /* .incorrect{
     background-color: red;
 } */
