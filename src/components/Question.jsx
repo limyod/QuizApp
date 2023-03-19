@@ -15,7 +15,6 @@ export default function Question(props){
                 styleClass = "selected"
             }
         }
-
         return (
             <button
                 disabled={props.answersChecked}
