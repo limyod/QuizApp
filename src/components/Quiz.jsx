@@ -8,12 +8,28 @@ import { nanoid } from 'nanoid'
  * question text
  * correct answer, incorrect answer, along with whether its selected.
  * category, question type, difficulty
- * 
  */
 export default function Quiz(){
-    const [questions, setQuestions] = React.useState(getNewQuestions())
+    const apiLink = "https://opentdb.com/api.php?amount=5"
+    const [questions, setQuestions] = React.useState([])
     const [answersChecked, setAnswersChecked] = React.useState(false)
-    function getNewQuestions(){
+    //const [OutOfQuestions, setOutOfQuestions] = React.useState(false)
+    React.useEffect(()=>{
+        async function fetchQuizData() {
+            try {
+                const response = await fetch(apiLink);
+                const data = await response.json();
+                const transformedData = transformData(data)
+                setQuestions(transformedData)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchQuizData()
+    }, [])
+
+    
+    function transformData(data){
         function shuffleArray(array) {
             for (var i = array.length - 1; i > 0; i--) {
                 var j = Math.floor(Math.random() * (i + 1));
@@ -22,7 +38,7 @@ export default function Quiz(){
                 array[j] = temp;
             }
         }
-        const x = data.results.map(question => {
+        const transformedData = data.results.map(question => {
             const inCorrectAnswers = question.incorrect_answers.map((ans)=>{
                 return { text: ans, selected: false, isCorrect: false }
             })
@@ -40,7 +56,7 @@ export default function Quiz(){
                 }
             )
         })
-        return x
+        return transformedData
     }
 
     
