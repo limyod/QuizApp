@@ -11,7 +11,7 @@ import he from 'he';
  * correct answer, incorrect answer, along with whether its selected.
  * category, question type, difficulty
  */
-export default function Quiz(){
+export default function Quiz(props){
     const apiLink = "https://opentdb.com/api.php?amount=5"
     const [questions, setQuestions] = React.useState([])
     const [answersChecked, setAnswersChecked] = React.useState(false)
@@ -93,6 +93,10 @@ export default function Quiz(){
         questionsAnswered === questions.length ? setAnswersChecked(true) : errorMessage()
     }
 
+    function goHome(){
+        props.setIsHome(true)
+    }
+    
     function errorMessage() {
         alert(`you haven't answered all the questions!`)
     }
@@ -102,8 +106,11 @@ export default function Quiz(){
             <div className="all_questions">
                 {questionElements}
             </div>
-            {answersChecked && <span>You answered {calculateScore()} out of {questions.length} questions correctly!</span>}
+            {answersChecked && 
+                <><span>You answered {calculateScore()} out of {questions.length} questions correctly!</span>
+                <button>Play again</button></>}
             <button onClick={checkAnswers} className='check_answer_button'>Check Answers</button>
+            <button onClick={goHome}>Return to Home Page</button>
         </section>
     )
 }
