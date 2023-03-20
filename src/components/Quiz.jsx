@@ -16,30 +16,25 @@ export default function Quiz(props){
     const [answersChecked, setAnswersChecked] = React.useState(false)
     //const [OutOfQuestions, setOutOfQuestions] = React.useState(false)
     React.useEffect(()=>{
-        async function fetchQuizData() {
-            const {amount, difficulty, category} = props.quizSettings
-            let queryParams = `amount=${amount}`
-            if(difficulty != 'mixed') queryParams += `&difficulty=${difficulty}`
-            if(category != 'none') queryParams +=`&category=${category}`
-            const apiLink = `https://opentdb.com/api.php?` + queryParams
-            try {
-                const response = await fetch(apiLink);
-                const data = await response.json();
-                const transformedData = transformData(data)
-                setQuestions(transformedData)
-            } catch (error) {
-                console.log(error);
-            }
-        }
         fetchQuizData()
     }, [])
 
-    // React.useEffect(()=>{
-    //     props.
-    // },[show]
+    async function fetchQuizData() {
+        const { amount, difficulty, category } = props.quizSettings
+        let queryParams = `amount=${amount}`
+        if (difficulty != 'mixed') queryParams += `&difficulty=${difficulty}`
+        if (category != 'none') queryParams += `&category=${category}`
+        const apiLink = `https://opentdb.com/api.php?` + queryParams
+        try {
+            const response = await fetch(apiLink);
+            const data = await response.json();
+            const transformedData = transformData(data)
+            setQuestions(transformedData)
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
-    // )
-    
     function transformData(data){
         function shuffleArray(array) {
             for (var i = array.length - 1; i > 0; i--) {
@@ -115,6 +110,11 @@ export default function Quiz(props){
         alert(`you haven't answered all the questions!`)
     }
 
+    function startNewQuiz(){
+        fetchQuizData()
+        setAnswersChecked(false)
+    }
+
     return(
         <section className='quiz'>
             <div className="all_questions">
@@ -122,7 +122,7 @@ export default function Quiz(props){
             </div>
             {answersChecked && 
                 <><span>You answered {calculateScore()} out of {questions.length} questions correctly!</span>
-                <button>Play again</button></>}
+                <button onClick={startNewQuiz}>Play again</button></>}
             <button onClick={checkAnswers} className='check_answer_button'>Check Answers</button>
             <button onClick={goHome}>Return to Home Page</button>
         </section>
