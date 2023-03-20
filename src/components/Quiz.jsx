@@ -118,7 +118,7 @@ export default function Quiz(props){
     return(
         <section className='quiz'>
             <div className="all_questions">
-                {questionElements}
+                {questions.length > 0 ? questionElements: <h2>Loading...</h2>}
             </div>
             {answersChecked && 
                 <><span>You answered {calculateScore()} out of {questions.length} questions correctly!</span>
