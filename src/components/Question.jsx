@@ -20,12 +20,12 @@ export default function Question(props){
                 disabled={props.answersChecked}
                 onClick={() => props.selectAnswer(props.question.id, answer.text)}
                 key={index}
-                className={`answer--btn ${styleClass}`}>{answer.text}</button>
+                className={`answer-btn ${styleClass}`}>{answer.text}</button>
         )
     })
     return (
         <div className="question">
-            <h4 className="question--text">{props.question.question}</h4>
+            <h4 className="question-text">{props.question.question}</h4>
             <div className="answers">
                 {answerElements}
             </div>

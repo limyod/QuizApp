@@ -12,10 +12,13 @@ function App() {
 
   const [isHome, setIsHome] = React.useState(true)
   const [quizSettings, setQuizSettings] = React.useState(defaultQuizSettings)
-  const [quizResults, setQuizResults] = React.useState([])
-  
+  const [quizResults, setQuizResults] = React.useState(localStorage.getItem("quizResults") ? JSON.parse(localStorage.getItem("quizResults")) : [])
+  console.log(quizResults)
+  React.useEffect(()=>{
+    localStorage.setItem("quizResults", JSON.stringify(quizResults))
+  }, [quizResults])
+
   function addQuizResult(quizResult) {
-    console.log(quizResult)
     setQuizResults(oldQuizResults => [...oldQuizResults, quizResult])
   }
 
@@ -32,6 +35,7 @@ function App() {
           quizSettings={quizSettings}
           setQuizSettings={setQuizSettings}
           setIsHome={setIsHome} 
+          deleteQuizResults={deleteQuizResults}
           /> :
         <Quiz 
           addQuizResult={addQuizResult}
