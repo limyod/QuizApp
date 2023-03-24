@@ -1,4 +1,5 @@
 import React from 'react'
+import ResultsTable from './ResultsTable'
 export default function Home(props){
     function startQuiz(){
         props.setIsHome(false)
@@ -14,7 +15,7 @@ export default function Home(props){
                     disabled={props.quizResults.length === 0}>Clear my Results</button>
             </div>
             <div>
-                {props.quizResults.map((quizResult)=> (<h1>{quizResult.date.toString()}</h1>))}
+                <ResultsTable quizResults={props.quizResults}/>
             </div>
         </section>
     )

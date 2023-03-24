@@ -28,21 +28,19 @@ function App() {
 
   return (
     <div className="App">
-      <main>
-        {isHome ? 
-        <Home 
-          quizResults={quizResults}
-          quizSettings={quizSettings}
-          setQuizSettings={setQuizSettings}
-          setIsHome={setIsHome} 
-          deleteQuizResults={deleteQuizResults}
-          /> :
-        <Quiz 
-          addQuizResult={addQuizResult}
-          quizSettings={quizSettings} 
-          setIsHome={setIsHome}
-          />}
-      </main>
+      {isHome ? 
+      <Home 
+        quizResults={quizResults}
+        quizSettings={quizSettings}
+        setQuizSettings={setQuizSettings}
+        setIsHome={setIsHome} 
+        deleteQuizResults={deleteQuizResults}
+        /> :
+      <Quiz 
+        addQuizResult={addQuizResult}
+        quizSettings={quizSettings} 
+        setIsHome={setIsHome}
+        />}
     </div>
   )
 }
