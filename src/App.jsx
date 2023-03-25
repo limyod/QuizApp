@@ -5,7 +5,7 @@ import Home from './components/Home'
 
 function App() {
   const defaultQuizSettings = {
-    amount: 5,
+    amount: 10,
     difficulty: 'mixed',
     category: 'none'
   }

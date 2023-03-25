@@ -83,3 +83,17 @@ html, #root, body, .App{
     margin-top: 20px;
 }
 
+.quiz-results-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}

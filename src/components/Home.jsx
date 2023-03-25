@@ -1,5 +1,6 @@
 import React from 'react'
 import ResultsTable from './ResultsTable'
+import ProgressionChart from './ProgressionChart'
 export default function Home(props){
     function startQuiz(){
         props.setIsHome(false)
@@ -14,9 +15,15 @@ export default function Home(props){
                     onClick={props.deleteQuizResults} 
                     disabled={props.quizResults.length === 0}>Clear my Results</button>
             </div>
-            <div>
-                <ResultsTable quizResults={props.quizResults}/>
-            </div>
+            {props.quizResults.length > 1 
+                ?
+                <div class="quiz-results-container">
+                    <ResultsTable quizResults={props.quizResults}/>
+                    <ProgressionChart quizResults={props.quizResults}/>
+                </div>
+                :
+                <h3>Play {2 - props.quizResults.length} more times to see view your past Results</h3>
+            }
         </section>
     )
 }
